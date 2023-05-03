@@ -3,12 +3,11 @@ import { Link } from "react-router-dom";
 import image from "../../assets/images/login/login.svg";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 
-
 const SignUp = () => {
-    const {createUser} = useContext(AuthContext)
+  const { createUser, signInWithGoogle } = useContext(AuthContext);
 
-const handleSignUp =(e)=>{
-    e.preventDefault()
+  const handleSignUp = (e) => {
+    e.preventDefault();
     const form = e.target;
     const name = form.name.value;
     const email = form.email.value;
@@ -24,7 +23,15 @@ const handleSignUp =(e)=>{
       .catch((error) => {
         console.error("register error", error);
       });
-}
+  };
+  const handleGoogle = () => {
+    signInWithGoogle()
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+      })
+      .catch((error) => console.error(error));
+  };
   return (
     <div className="hero w-full my-20">
       <div className="hero-content grid gap-10 grid-cols-2 flex-col lg:flex-row">
@@ -85,6 +92,12 @@ const handleSignUp =(e)=>{
               Login
             </Link>
           </p>
+          <button
+            onClick={handleGoogle}
+            className="btn mx-auto mt-5 btn-circle"
+          >
+            G
+          </button>
         </div>
       </div>
     </div>

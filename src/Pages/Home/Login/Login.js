@@ -1,10 +1,23 @@
-import React from "react";
+import React, { useContext } from "react";
 import image from "../../../assets/images/login/login.svg";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../../contexts/AuthProvider/AuthProvider";
 
 const Login = () => {
+  const { signIn } = useContext(AuthContext);
   const handleSubmit = (e) => {
     e.preventDefault();
+    const form = e.target;
+    const email = form.email.value;
+    const password = form.password.value;
+    console.log(email, password);
+
+    signIn(email, password)
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+      })
+      .catch((error) => console.error(error));
   };
   return (
     <div className="hero w-full my-20">
@@ -15,7 +28,7 @@ const Login = () => {
         <div className="card flex-shrink-0 py-10 w-full max-w-sm shadow-2xl bg-base-100">
           <h1 className="text-5xl text-center font-bold">Login</h1>
 
-          <form onClick={handleSubmit} className="card-body">
+          <form onSubmit={handleSubmit} className="card-body">
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Email</span>
@@ -38,13 +51,17 @@ const Login = () => {
                 className="input input-bordered"
               />
               <label className="label">
-                <Link to='/' className="label-text-alt link link-hover">
+                <Link to="/" className="label-text-alt link link-hover">
                   Forgot password?
                 </Link>
               </label>
             </div>
             <div className="form-control mt-6">
-              <input className="btn bg-orange-600 border-0" type="submit" value="Login" />
+              <input
+                className="btn bg-orange-600 border-0"
+                type="submit"
+                value="Login"
+              />
             </div>
           </form>
           <p className="text-center ">
