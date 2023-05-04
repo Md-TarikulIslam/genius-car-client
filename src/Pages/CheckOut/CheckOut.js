@@ -23,6 +23,25 @@ const CheckOut = () => {
       email,
       message,
     };
+    if (phone.length < 10) {
+      alert("Phone number should be more than 10 numbers");
+    }
+    fetch("http://localhost:5000/orders", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(order),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.acknowledged) {
+          form.reset();
+          alert('Order placed successfully')
+        }
+      })
+      .catch((error) => console.error(error));
   };
   return (
     <div>
@@ -47,6 +66,7 @@ const CheckOut = () => {
             type="number"
             placeholder="Your Phone"
             className="input w-full input-bordered"
+            required
           />
           <input
             name="email"
