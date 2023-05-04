@@ -45,10 +45,10 @@ const CheckOut = () => {
   };
   return (
     <div>
-      <form onSubmit={handleCheckOut}>
+      <form className="py-20" onSubmit={handleCheckOut}>
         <h2 className="text-4xl">You are about to order: {title}</h2>
         <h4 className="text-3xl">Price: ${price}</h4>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <div className="grid mt-10 grid-cols-1 lg:grid-cols-2 gap-10">
           <input
             name="firstName"
             type="text"
@@ -78,7 +78,7 @@ const CheckOut = () => {
           />
         </div>
         <textarea
-          className="textarea textarea-bordered h-24 w-full"
+          className="textarea my-10 textarea-bordered h-24 w-full"
           placeholder="Your Message"
           name="message"
           id=""
